@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<style>
+    .car-card {
+        transition: transform 0.3s;
+    }
+    .car-card:hover {
+        transform: translateY(-5px);
+    }
+    .car-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+    .delete-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class='container mt-4'>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <h1 class="mb-4">Delete Cars</h1>
+
+    <!-- Filter Form -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="GET" class="row g-3">
+                <div class="col-md-4">
+                    <select name="make" class="form-select">
+                        <option value="">Select Make</option>
+                        {% for make in makes %}
+                            <option value="{{ make }}" {% if selected_make == make %}selected{% endif %}>{{ make }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <select name="color" class="form-select">
+                        <option value="">Select Color</option>
+                        {% for color in colors %}
+                            <option value="{{ color }}" {% if selected_color == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                    <a href="{% url 'delete' %}" class="btn btn-secondary">Reset</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cars Grid -->
+     <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for car in cars %}
+        <div class="col">
+            <div class="card h-100 shadow car-card">
+                {% if car.image %}
+                    <img src="{{ car.image.url }}" class="card-img-top car-img-top" alt="{{ car.make }} {{ car.model }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/300x200?text=No+Image" class="card-img-top car-img-top" alt="No image available">
+                {% endif %}
+                <form method="POST" class="delete-btn">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{ car.id }}">
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this car?')">
+                        <i class="bi bi-trash"></i> Delete
+                    </button>
+                </form>
+                <div class="card-body">
+                    <h5 class="card-title">{{ car.year }} {{ car.make }} {{ car.model }}</h5>
+                    <p class="card-text">
+                        <span class="badge bg-primary">{{ car.color }}</span>
+                        <span class="badge bg-success">${{ car.price }}</span>
+                    </p>
+                    {% if car.description %}
+                        <p class="card-text">{{ car.description|truncatewords:30 }}</p>
+                    {% endif %}
+                </div>
+                <div class="card-footer text-muted">
+                    Added: {{ car.created_at|date:"M d, Y" }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

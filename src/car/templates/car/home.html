@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <div class="jumbotron text-center bg-dark text-white py-5 mb-4">
+        <h1 class="display-4">Welcome to CarDeals</h1>
+        <p class="lead">Find your dream car at the best prices</p>
+        <a href="{% url 'list' %}" class="btn btn-primary btn-lg">Browse Cars</a>
+    </div>
+
+    <!-- Featured Cars Section -->
+    <h2 class="text-center mb-4">Featured Cars</h2>
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e" class="card-img-top" alt="Luxury Car">
+                <div class="card-body">
+                    <h5 class="card-title">Luxury Cars</h5>
+                    <p class="card-text">Discover our collection of premium luxury vehicles.</p>
+                    <a href="{% url 'list' %}" class="btn btn-primary">View Collection</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888" class="card-img-top" alt="Sports Car">
+                <div class="card-body">
+                    <h5 class="card-title">Sports Cars</h5>
+                    <p class="card-text">Experience the thrill of high-performance vehicles.</p>
+                    <a href="{% url 'list' %}" class="btn btn-primary">View Collection</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70" class="card-img-top" alt="SUV">
+                <div class="card-body">
+                    <h5 class="card-title">SUVs</h5>
+                    <p class="card-text">Find the perfect family vehicle for your needs.</p>
+                    <a href="{% url 'list' %}" class="btn btn-primary">View Collection</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <div class="row mt-5">
+        <div class="col-md-4 text-center">
+            <i class="fas fa-car fa-3x mb-3 text-primary"></i>
+            <h4>Wide Selection</h4>
+            <p>Choose from hundreds of quality vehicles</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <i class="fas fa-dollar-sign fa-3x mb-3 text-primary"></i>
+            <h4>Best Prices</h4>
+            <p>Competitive prices and special offers</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <i class="fas fa-wrench fa-3x mb-3 text-primary"></i>
+            <h4>Quality Service</h4>
+            <p>Professional maintenance and support</p>
+        </div>
+    </div>
+</div>
+
+<!-- Add this to your base.html for Font Awesome icons -->
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+    .jumbotron {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7');
+        background-size: cover;
+        background-position: center;
+    }
+</style>
+{% endblock %}
+{% endblock content %}
